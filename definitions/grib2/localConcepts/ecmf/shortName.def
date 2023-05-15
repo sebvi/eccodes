@@ -657,10 +657,12 @@
 	}
 #Convective precipitation
 'cp' = {
+	 localTablesVersion = 1 ;
 	 discipline = 0 ;
 	 parameterCategory = 1 ;
-	 parameterNumber = 10 ;
-	 unitsFactor = 1000 ;
+	 parameterNumber = 195 ;
+	 typeOfFirstFixedSurface = 1 ;
+	 typeOfStatisticalProcessing = 1 ;
 	}
 #Snowfall
 'sf' = {
@@ -1025,9 +1027,10 @@
 	}
 #Forecast albedo
 'fal' = {
-	 discipline = 192 ;
-	 parameterCategory = 128 ;
-	 parameterNumber = 243 ;
+	 localTablesVersion = 1 ;
+	 discipline = 0 ;
+	 parameterCategory = 19 ;
+	 parameterNumber = 193 ;
 	}
 #Forecast surface roughness
 'fsr' = {
@@ -17068,12 +17071,6 @@
 	 discipline = 192 ;
 	 parameterCategory = 151 ;
 	 parameterNumber = 148 ;
-	}
-#Bottom Pressure (equivalent height)
-'btp' = {
-	 discipline = 192 ;
-	 parameterCategory = 151 ;
-	 parameterNumber = 149 ;
 	}
 #Steric height
 'sh' = {
