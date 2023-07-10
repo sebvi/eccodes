@@ -2,7 +2,6 @@
 
 transient dummyc=0: hidden;
 
-
 concept paramIdLegacyECMF(defaultParameter,"paramId.legacy.def",conceptsMasterDir,conceptsLocalDirECMF): long_type,no_copy,hidden;
 concept paramIdECMF (paramIdLegacyECMF,"paramId.def",conceptsMasterDir,conceptsLocalDirECMF): long_type,no_copy;
 concept paramId (paramIdECMF,"paramId.def",conceptsDir2,conceptsDir1): long_type;
@@ -31,5 +30,9 @@ concept cfVarName (cfVarNameECMF,"cfVarName.def",conceptsDir2,conceptsDir1): no_
 concept modelName (defaultName,"modelName.def",conceptsDir2,conceptsDir1): no_copy,dump,read_only;
 
 template_nofail names "grib2/products_[productionStatusOfProcessedData].def";
+
+transient defaultParamType = "error";
+
+concept paramType (defaultParamType,"paramType.def",conceptsDir2,conceptsDir1): no_copy,dump;
 
 meta ifsParam ifs_param(paramId,type);

@@ -1,5 +1,7 @@
 # (C) Copyright 2005- ECMWF.
 
+set is_aerosol_size = 1 : hidden;
+
 codetable[1] typeOfSizeInterval ('4.91.table',masterDir,localDir) : dump;
 alias typeOfIntervalForFirstAndSecondSize=typeOfSizeInterval;
 

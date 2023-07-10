@@ -1,5 +1,7 @@
 # (C) Copyright 2005- ECMWF.
 
+set is_chemical = 1 :hidden;
+
 # Atmospheric chemical or physical constituent type
 codetable[2] constituentType ('4.230.table',masterDir,localDir) : dump;
 meta constituentTypeName codetable_title(constituentType);

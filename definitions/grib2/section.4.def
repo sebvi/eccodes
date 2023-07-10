@@ -3,6 +3,10 @@
 transient timeRangeIndicator=0 : no_copy,hidden;
 transient is_localtime=0 : no_copy,hidden;
 
+# for paramType and template4Type
+transient is_aerosol=0 : no_copy,hidden;
+transient is_aerosol_size=0 : no_copy,hidden;
+
 position offsetSection4;
 section_length[4] section4Length ;
 meta section4Pointer section_pointer(offsetSection4,section4Length,4);
