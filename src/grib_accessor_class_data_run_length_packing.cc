@@ -8,6 +8,7 @@
  * virtue of its status as an intergovernmental organisation nor does it submit to any jurisdiction.
  */
 
+#include "grib_scaling.h"
 #include "grib_api_internal.h"
 
 /*
@@ -44,7 +45,6 @@ static int pack_double(grib_accessor*, const double* val, size_t* len);
 static int unpack_double(grib_accessor*, double* val, size_t* len);
 static int value_count(grib_accessor*, long*);
 static void init(grib_accessor*, const long, grib_arguments*);
-//static void init_class(grib_accessor_class*);
 
 typedef struct grib_accessor_data_run_length_packing
 {
@@ -117,12 +117,6 @@ static grib_accessor_class _grib_accessor_class_data_run_length_packing = {
 
 
 grib_accessor_class* grib_accessor_class_data_run_length_packing = &_grib_accessor_class_data_run_length_packing;
-
-
-//static void init_class(grib_accessor_class* c)
-//{
-// INIT
-//}
 
 /* END_CLASS_IMP */
 
@@ -203,7 +197,7 @@ static int unpack_double(grib_accessor* a, double* val, size_t* len)
     if (decimal_scale_factor > 127) {
         decimal_scale_factor = -(decimal_scale_factor - 128);
     }
-    level_scale_factor = grib_power(-decimal_scale_factor, 10.0);
+    level_scale_factor = codes_power<double>(-decimal_scale_factor, 10.0);
     levels = (double*)grib_context_malloc_clear(a->context, sizeof(double) * (number_of_level_values + 1));
     levels[0] = missingValue;
     for (i = 0; i < number_of_level_values; i++) {
