@@ -9,7 +9,7 @@
  */
 
 #include "grib_api_internal.h"
-#include <math.h>
+#include <cmath>
 
 /*
    This is used by make_class.pl
@@ -161,7 +161,7 @@ static int init(grib_iterator* iter, grib_handle* h, grib_arguments* args)
         return ret;
     if ((ret = grib_get_double_internal(h, "longitudeOfLastGridPointInDegrees", &lon2)))
         return ret;
-    if ((ret = grib_get_double_internal(h, s_idir, &idir)))
+    if ((ret = grib_get_double_internal(h, s_idir, &idir))) // can be GRIB_MISSING_DOUBLE
         return ret;
     if ((ret = grib_get_long_internal(h, s_Ni, &Ni)))
         return ret;
@@ -174,6 +174,11 @@ static int init(grib_iterator* iter, grib_handle* h, grib_arguments* args)
         return ret;
     if (grib_is_missing(h, s_Nj, &ret) && ret == GRIB_SUCCESS) {
         grib_context_log(h->context, GRIB_LOG_ERROR, "Key %s cannot be 'missing' for a regular grid!", s_Nj);
+        return GRIB_WRONG_GRID;
+    }
+
+    if (Ni*Nj != iter->nv) {
+        grib_context_log(h->context, GRIB_LOG_ERROR, "Geoiterator: Ni*Nj!=numberOfDataPoints (%ld*%ld!=%zu)", Ni,Nj,iter->nv);
         return GRIB_WRONG_GRID;
     }
 
@@ -225,7 +230,7 @@ static int init(grib_iterator* iter, grib_handle* h, grib_arguments* args)
     /* ECC-1406: Due to rounding, errors can accumulate.
      * So we ensure the last longitude is longitudeOfLastGridPointInDegrees
     */
-    self->los[Ni-1] = lon2;
+    self->los[Ni-1] = normalise_longitude_in_degrees(lon2); // Also see ECC-1671
 
     return ret;
 }

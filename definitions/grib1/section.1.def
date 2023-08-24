@@ -112,10 +112,6 @@ if( indicatorOfTypeOfLevel == 109 ||
 {
     alias mars.levelist = level;
 }
-if (indicatorOfTypeOfLevel == 117) {
-    # See ECC-1081
-    constant levelFactor = 6;
-}
 
 unsigned[1] yearOfCentury : edition_specific;
 unsigned[1] month;
@@ -250,6 +246,7 @@ if (centre == 34 && subCentre == 241)
 
 meta time.validityDate validity_date(dataDate,dataTime,step,stepUnits);
 meta time.validityTime validity_time(dataDate,dataTime,step,stepUnits);
+meta validityDateTime julian_date(validityDate, validityTime) : no_copy;
 
 transient deleteLocalDefinition=0;
 
